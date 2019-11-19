@@ -2,20 +2,15 @@
 import torch
 import torchvision
 import torchvision.transforms as transforms
-import matplotlib.pyplot as plt
-import numpy as np
 import torch.nn as nn
-import torch.nn.functional as F
 import torch.optim as optim
-from tools import imshow
-from tools import Net
+from train_a_model.tools import Net
 
 def set_figsize(figsize=(3.5, 2.5)):
     use_svg_display()
     plt.rcParams['figure.figsize'] = figsize
 
 
-from IPython import display
 from matplotlib import pyplot as plt
 import numpy as np
 
@@ -34,7 +29,7 @@ transform = transforms.Compose(
 trainset = torchvision.datasets.CIFAR10(root='./data', train=True,
                                         download=True, transform=transform)
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=4,
-                                          shuffle=True, num_workers=2)
+                                          shuffle=True, num_workers=0)
 
 classes = ('plane', 'car', 'bird', 'cat',
            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
@@ -65,21 +60,17 @@ optimizer = optim.SGD(net.parameters(), lr=1e-7, momentum=0.9)
 
 # Train the network
 ls = []
-for epoch in range(100):  # loop over the dataset multiple times
-    if epoch < 10:
+for epoch in range(10):  # loop over the dataset multiple times
+    if epoch < 2:
         optimizer = optim.SGD(net.parameters(), lr=1e-3, momentum=0.9)
-    elif 10 <= epoch < 20:
+    elif 2 <= epoch < 4:
         optimizer = optim.SGD(net.parameters(), lr=1e-4, momentum=0.9)
-    elif 20 <= epoch < 30:
+    elif 4 <= epoch < 6:
         optimizer = optim.SGD(net.parameters(), lr=1e-5, momentum=0.9)
-    elif 30 <= epoch < 40:
+    elif 6 <= epoch < 8:
         optimizer = optim.SGD(net.parameters(), lr=1e-6, momentum=0.9)
-    elif 40 <= epoch < 50:
+    elif 8 <= epoch < 10:
         optimizer = optim.SGD(net.parameters(), lr=1e-7, momentum=0.9)
-    elif 50 <= epoch < 60:
-        optimizer = optim.SGD(net.parameters(), lr=1e-8, momentum=0.9)
-    elif 60 <= epoch < 70:
-        optimizer = optim.SGD(net.parameters(), lr=1e-9, momentum=0.9)
 
     running_loss = 0.0
     for i, data in enumerate(trainloader, 0):

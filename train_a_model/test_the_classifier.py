@@ -2,13 +2,8 @@
 import torch
 import torchvision
 import torchvision.transforms as transforms
-import matplotlib.pyplot as plt
-import numpy as np
-import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
-from tools import imshow
-from tools import Net
+from train_a_model.tools import imshow
+from train_a_model.tools import Net
 classes = ('plane', 'car', 'bird', 'cat',
            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
@@ -19,7 +14,7 @@ transform = transforms.Compose(
 testset = torchvision.datasets.CIFAR10(root='./data', train=False,
                                        download=True, transform=transform)
 testloader = torch.utils.data.DataLoader(testset, batch_size=4,
-                                         shuffle=False, num_workers=2)
+                                         shuffle=False, num_workers=0)
 
 dataiter = iter(testloader)
 images, labels = dataiter.next()
